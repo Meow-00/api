@@ -1,0 +1,92 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter the first number: ");
+        double num1 = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter the second number: ");
+        double num2 = Convert.ToDouble(Console.ReadLine());
+
+        double addition = num1 + num2;
+        double subtraction = num1 - num2;
+        double multiplication = num1 * num2;
+        double division = num2 != 0 ? num1 / num2 : double.NaN;
+
+        Console.WriteLine($"Addition: {addition}");
+        Console.WriteLine($"Subtraction: {subtraction}");
+        Console.WriteLine($"Multiplication: {multiplication}");
+        Console.WriteLine($"Division: {(double.IsNaN(division) ? "Cannot divide by zero" : division.ToString())}");
+    }
+}
+
+
+using System;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp2
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            InitializeRadioButtonList();
+        }
+
+        private void InitializeRadioButtonList()
+        {
+            string[] flowers = { "Rose", "Sunflower", "Lily", "Chrysanthemum", "Tulip", "Daisy", "Orchid", "Peony" };
+            int index = 0;
+            int columnCount = 2;
+
+            for (int i = 0; i < flowers.Length; i++)
+            {
+                RadioButton rb = new RadioButton
+                {
+                    Text = flowers[i],
+                    Location = new System.Drawing.Point(10 + (i % columnCount) * 120, 20 + (index * 30)),
+                    AutoSize = true
+                };
+
+                if (i == 0)
+                {
+                    rb.Checked = true;
+                }
+
+                rb.CheckedChanged += new EventHandler(RadioButton_CheckedChanged);
+                groupBoxFlowers.Controls.Add(rb);
+
+                if (i % columnCount == columnCount - 1)
+                {
+                    index++;
+                }
+            }
+        }
+
+        private void buttonSubmit_Click(object sender, EventArgs e)
+        {
+            string selectedFlower = "";
+            foreach (RadioButton rb in groupBoxFlowers.Controls)
+            {
+                if (rb.Checked)
+                {
+                    selectedFlower = rb.Text;
+                    break;
+                }
+            }
+            labelSelectedFlower.Text = $"Selected Flower: {selectedFlower}";
+        }
+
+        private void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb != null && rb.Checked)
+            {
+                labelSelectedFlower.Text = $"Selected Flower: {rb.Text}";
+            }
+        }
+    }
+}

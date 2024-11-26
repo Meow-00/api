@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+
+class StackExample
+{
+    static void Main()
+    {
+        Stack<int> stack = new Stack<int>();
+        stack.Push(10);
+        stack.Push(20);
+        stack.Push(30);
+        stack.Push(40);
+        stack.Push(50);
+
+        int top = stack.Peek();
+        int bottom = GetBottom(stack);
+
+        Console.WriteLine($"Top element: {top}");
+        Console.WriteLine($"Bottom element: {bottom}");
+    }
+
+    static int GetBottom(Stack<int> stack)
+    {
+        int bottom = 0;
+        if (stack.Count > 0)
+        {
+            bottom = stack.ToArray()[0];
+        }
+        return bottom;
+    }
+}
+
+
+
+
+
+using System;
+
+interface IGross
+{
+    decimal TA { get; }
+    decimal DA { get; }
+    decimal GrossSal();
+}
+
+class Employee
+{
+    public string Name { get; set; }
+    public decimal BasicSal { get; set; }
+
+    public Employee(string name, decimal basicSal)
+    {
+        Name = name;
+        BasicSal = basicSal;
+    }
+}
+
+class Salary : Employee, IGross
+{
+    public Salary(string name, decimal basicSal) : base(name, basicSal) { }
+
+    public decimal TA => BasicSal * 0.10m;
+    public decimal DA => BasicSal * 0.15m;
+
+    public decimal GrossSal()
+    {
+        return BasicSal + TA + DA;
+    }
+
+    public void DispSal()
+    {
+        Console.WriteLine($"Name: {Name}");
+        Console.WriteLine($"Basic Salary: {BasicSal}");
+        Console.WriteLine($"TA: {TA}");
+        Console.WriteLine($"DA: {DA}");
+        Console.WriteLine($"Gross Salary: {GrossSal()}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Salary salary = new Salary("John Doe", 50000);
+        salary.DispSal();
+    }
+}

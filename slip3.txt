@@ -1,0 +1,92 @@
+using System;
+
+class slip3
+{
+    static void Main(string[] args)
+    {
+        int[] array = { 23, 45, 12, 67, 34, 89, 10 };
+
+        Console.WriteLine("Original Array:");
+        Console.WriteLine(string.Join(", ", array));
+
+        Array.Sort(array);
+        Console.WriteLine("\nArray in Ascending Order:");
+        Console.WriteLine(string.Join(", ", array));
+
+        Array.Reverse(array);
+        Console.WriteLine("\nArray in Descending Order:");
+        Console.WriteLine(string.Join(", ", array));
+    }
+}
+
+
+
+using System;
+using System.Windows.Forms;
+
+namespace CalculatorApp
+{
+    public partial class Form1 : Form
+    {
+        private double result = 0;
+        private string operation = "";
+        private bool operationPressed = false;
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btnNum_Click(object sender, EventArgs e)
+        {
+            if (txtDisplay.Text == "0" || operationPressed)
+                txtDisplay.Clear();
+
+            operationPressed = false;
+            Button button = (Button)sender;
+            txtDisplay.Text += button.Text;
+        }
+
+        private void btnOperation_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            operation = button.Text;
+            result = double.Parse(txtDisplay.Text);
+            operationPressed = true;
+        }
+
+        private void btnEquals_Click(object sender, EventArgs e)
+        {
+            switch (operation)
+            {
+                case "+":
+                    txtDisplay.Text = (result + double.Parse(txtDisplay.Text)).ToString();
+                    break;
+                case "-":
+                    txtDisplay.Text = (result - double.Parse(txtDisplay.Text)).ToString();
+                    break;
+                case "*":
+                    txtDisplay.Text = (result * double.Parse(txtDisplay.Text)).ToString();
+                    break;
+                case "/":
+                    txtDisplay.Text = (result / double.Parse(txtDisplay.Text)).ToString();
+                    break;
+                default:
+                    break;
+            }
+            operation = "";
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text = "0";
+            result = 0;
+            operation = "";
+        }
+
+        private void btnCE_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Clear();
+        }
+    }
+}

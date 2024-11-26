@@ -1,0 +1,91 @@
+using System;
+
+class slip5
+{
+    static void Main()
+    {
+        int[] numbers = { 23, 45, 12, 67, 34, 89, 2, 90, 56 };
+        int largestNumber = FindLargestNumber(numbers);
+        Console.WriteLine($"The largest number in the array is: {largestNumber}");
+    }
+
+    static int FindLargestNumber(int[] array)
+    {
+        int largest = array[0];
+        foreach (int number in array)
+        {
+            if (number > largest)
+            {
+                largest = number;
+            }
+        }
+        return largest;
+    }
+}
+
+
+
+
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace ColorChangerApp
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            InitializeColorListControl();
+        }
+
+        private void InitializeColorListControl()
+        {
+            var colorListControl = new ColorListControl();
+            colorListControl.Location = new Point(10, 10);
+            this.Controls.Add(colorListControl);
+
+            Button btnChangeColor = new Button();
+            btnChangeColor.Text = "Change Color";
+            btnChangeColor.Location = new Point(10, 100);
+            btnChangeColor.Click += (s, e) => 
+            {
+                this.BackColor = colorListControl.SelectedColor;
+            };
+            this.Controls.Add(btnChangeColor);
+        }
+    }
+
+    public class ColorListControl : UserControl
+    {
+        private ComboBox comboBoxColors;
+
+        public ColorListControl()
+        {
+            comboBoxColors = new ComboBox();
+            comboBoxColors.Dock = DockStyle.Top;
+            this.Controls.Add(comboBoxColors);
+            LoadColors();
+        }
+
+        private void LoadColors()
+        {
+            comboBoxColors.Items.AddRange(new object[]
+            {
+                "Red", "Green", "Blue", "Yellow", "Cyan", "Magenta", "Orange", "Purple", "Black", "White"
+            });
+            comboBoxColors.SelectedIndex = 0;
+        }
+
+        public Color SelectedColor
+        {
+            get
+            {
+                return Color.FromName(comboBoxColors.SelectedItem.ToString());
+            }
+        }
+    }
+}
+

@@ -1,0 +1,124 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace ImageBlinker
+{
+    public partial class Form1 : Form
+    {
+        private bool isVisible = true;
+
+        public Form1()
+        {
+            InitializeComponent();
+            timer1.Tick += Timer1_Tick;
+            timer1.Start();
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            pictureBox1.Visible = isVisible;
+            isVisible = !isVisible;
+        }
+    }
+}
+
+
+
+
+CREATE TABLE Emp (
+    ENo INT PRIMARY KEY,
+    EName NVARCHAR(100),
+    Salary DECIMAL(18, 2)
+);
+
+INSERT INTO Emp (ENo, EName, Salary) VALUES (1, 'Alice', 60000);
+INSERT INTO Emp (ENo, EName, Salary) VALUES (2, 'Bob', 55000);
+INSERT INTO Emp (ENo, EName, Salary) VALUES (3, 'Charlie', 70000);
+INSERT INTO Emp (ENo, EName, Salary) VALUES (4, 'David', 62000);
+INSERT INTO Emp (ENo, EName, Salary) VALUES (5, 'Eve', 58000);
+
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace EmpManagementApp
+{
+    public partial class Form1 : Form
+    {
+        private string connectionString = "your_connection_string_here";
+
+        public Form1()
+        {
+            InitializeComponent();
+            LoadData();
+        }
+
+        private void btnInsert_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "INSERT INTO Emp (ENo, EName, Salary) VALUES (@ENo, @EName, @Salary)";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ENo", Convert.ToInt32(txtENo.Text));
+                    command.Parameters.AddWithValue("@EName", txtEName.Text);
+                    command.Parameters.AddWithValue("@Salary", Convert.ToDecimal(txtSalary.Text));
+                    command.ExecuteNonQuery();
+                }
+            }
+            LoadData();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "DELETE FROM Emp WHERE ENo = @ENo";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ENo", Convert.ToInt32(txtENo.Text));
+                    command.ExecuteNonQuery();
+                }
+            }
+            LoadData();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "UPDATE Emp SET EName = @EName, Salary = @Salary WHERE ENo = @ENo";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ENo", Convert.ToInt32(txtENo.Text));
+                    command.Parameters.AddWithValue("@EName", txtEName.Text);
+                    command.Parameters.AddWithValue("@Salary", Convert.ToDecimal(txtSalary.Text));
+                    command.ExecuteNonQuery();
+                }
+            }
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT ENo, EName, Salary FROM Emp";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+                dataGridViewEmp.DataSource = dataTable;
+            }
+        }
+    }
+}
+
+
+

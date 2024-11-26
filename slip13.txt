@@ -1,0 +1,109 @@
+using System;
+
+namespace PrivateAssemblyDemo
+{
+    public class Calculator
+    {
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
+
+        public int Subtract(int a, int b)
+        {
+            return a - b;
+        }
+
+        public int Multiply(int a, int b)
+        {
+            return a * b;
+        }
+
+        public double Divide(int a, int b)
+        {
+            if (b == 0)
+                throw new DivideByZeroException("Cannot divide by zero.");
+            return (double)a / b;
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            Calculator calculator = new Calculator();
+
+            Console.WriteLine("Enter two numbers:");
+            int num1 = Convert.ToInt32(Console.ReadLine());
+            int num2 = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine($"Addition: {calculator.Add(num1, num2)}");
+            Console.WriteLine($"Subtraction: {calculator.Subtract(num1, num2)}");
+            Console.WriteLine($"Multiplication: {calculator.Multiply(num1, num2)}");
+            
+            try
+            {
+                Console.WriteLine($"Division: {calculator.Divide(num1, num2)}");
+            }
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+}
+
+
+
+
+
+
+CREATE TABLE Teacher (
+    TID INT PRIMARY KEY,
+    TName NVARCHAR(100),
+    Salary DECIMAL(18, 2)
+);
+
+INSERT INTO Teacher (TID, TName, Salary) VALUES (1, 'Alice', 60000);
+INSERT INTO Teacher (TID, TName, Salary) VALUES (2, 'Bob', 55000);
+INSERT INTO Teacher (TID, TName, Salary) VALUES (3, 'Charlie', 70000);
+INSERT INTO Teacher (TID, TName, Salary) VALUES (4, 'David', 62000);
+INSERT INTO Teacher (TID, TName, Salary) VALUES (5, 'Eve', 58000);
+
+
+
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace TeacherApp
+{
+    public partial class Form1 : Form
+    {
+        private string connectionString = "your_connection_string_here";
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btnLoadData_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT TID, TName, Salary FROM Teacher";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+                dataGridViewTeachers.DataSource = dataTable;
+            }
+        }
+    }
+}

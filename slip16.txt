@@ -1,0 +1,99 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        try
+        {
+            Console.Write("Please enter a numeric integer (0-1000): ");
+            int userInput = Convert.ToInt32(Console.ReadLine());
+
+            if (userInput < 0 || userInput > 1000)
+            {
+                throw new ArgumentOutOfRangeException("Input must be between 0 and 1000.");
+            }
+
+            Console.WriteLine("You entered: " + userInput);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Error: Please enter a valid numeric integer.");
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+    }
+}
+
+
+
+
+
+
+
+using System;
+
+class Employee
+{
+    public string Name { get; set; }
+    public int Id { get; set; }
+
+    public virtual void Display()
+    {
+        Console.WriteLine($"Employee ID: {Id}, Name: {Name}");
+    }
+}
+
+class Programmer : Employee
+{
+    public string ProgrammingLanguage { get; set; }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Programming Language: {ProgrammingLanguage}");
+    }
+}
+
+class Manager : Employee
+{
+    public int TeamSize { get; set; }
+
+    public override void Display()
+    {
+        base.Display();
+        Console.WriteLine($"Team Size: {TeamSize}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Programmer programmer = new Programmer
+        {
+            Id = 1,
+            Name = "Alice",
+            ProgrammingLanguage = "C#"
+        };
+
+        Manager manager = new Manager
+        {
+            Id = 2,
+            Name = "Bob",
+            TeamSize = 5
+        };
+
+        Console.WriteLine("Programmer Details:");
+        programmer.Display();
+
+        Console.WriteLine("\nManager Details:");
+        manager.Display();
+    }
+}

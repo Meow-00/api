@@ -1,0 +1,94 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a string: ");
+        string inputString = Console.ReadLine();
+        Console.Write("Enter a character to find: ");
+        char character = Console.ReadKey().KeyChar;
+        Console.WriteLine();
+
+        int occurrences = CountCharacterOccurrences(inputString, character);
+        Console.WriteLine($"The character '{character}' occurs {occurrences} times in the string.");
+    }
+
+    static int CountCharacterOccurrences(string str, char ch)
+    {
+        int count = 0;
+        foreach (char c in str)
+        {
+            if (c == ch) count++;
+        }
+        return count;
+    }
+}
+
+
+
+
+using System;
+
+class Person
+{
+    public string Name { get; set; }
+    public DateTime Birthdate { get; set; }
+
+    public Person(string name, DateTime birthdate)
+    {
+        Name = name;
+        Birthdate = birthdate;
+    }
+
+    public virtual void Print()
+    {
+        Console.WriteLine($"Name: {Name}, Birthdate: {Birthdate.ToShortDateString()}");
+    }
+}
+
+class Student : Person
+{
+    public string Course { get; set; }
+
+    public Student(string name, DateTime birthdate, string course) : base(name, birthdate)
+    {
+        Course = course;
+    }
+
+    public override void Print()
+    {
+        base.Print();
+        Console.WriteLine($"Course: {Course}");
+    }
+}
+
+class Instructor : Person
+{
+    public decimal Salary { get; set; }
+
+    public Instructor(string name, DateTime birthdate, decimal salary) : base(name, birthdate)
+    {
+        Salary = salary;
+    }
+
+    public override void Print()
+    {
+        base.Print();
+        Console.WriteLine($"Salary: {Salary:C}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Student student = new Student("Alice", new DateTime(2000, 5, 15), "Computer Science");
+        Instructor instructor = new Instructor("Bob", new DateTime(1985, 3, 22), 60000m);
+
+        Console.WriteLine("Student Details:");
+        student.Print();
+        Console.WriteLine("\nInstructor Details:");
+        instructor.Print();
+    }
+}

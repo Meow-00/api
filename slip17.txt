@@ -1,0 +1,90 @@
+using System;
+
+class Program
+{
+    public static void Swap(ref int a, ref int b, ref int c)
+    {
+        int temp = a;
+        a = b;
+        b = c;
+        c = temp;
+    }
+
+    public static void Swap(ref float a, ref float b, ref float c)
+    {
+        float temp = a;
+        a = b;
+        b = c;
+        c = temp;
+    }
+
+    static void Main()
+    {
+        int int1 = 1, int2 = 2, int3 = 3;
+        Console.WriteLine($"Before swapping integers: {int1}, {int2}, {int3}");
+        Swap(ref int1, ref int2, ref int3);
+        Console.WriteLine($"After swapping integers: {int1}, {int2}, {int3}");
+
+        float float1 = 1.1f, float2 = 2.2f, float3 = 3.3f;
+        Console.WriteLine($"Before swapping floats: {float1}, {float2}, {float3}");
+        Swap(ref float1, ref float2, ref float3);
+        Console.WriteLine($"After swapping floats: {float1}, {float2}, {float3}");
+    }
+}
+
+
+
+
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[,] matrixA = new int[3, 3];
+        int[,] matrixB = new int[3, 3];
+        int[,] resultMatrix = new int[3, 3];
+
+        Console.WriteLine("Enter elements of first 3x3 matrix (row wise):");
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                Console.Write($"Element [{i},{j}]: ");
+                matrixA[i, j] = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+
+        Console.WriteLine("Enter elements of second 3x3 matrix (row wise):");
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                Console.Write($"Element [{i},{j}]: ");
+                matrixB[i, j] = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    resultMatrix[i, j] += matrixA[i, k] * matrixB[k, j];
+                }
+            }
+        }
+
+        Console.WriteLine("Resultant Matrix after multiplication:");
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                Console.Write(resultMatrix[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+}

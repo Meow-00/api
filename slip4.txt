@@ -1,0 +1,84 @@
+using System;
+
+class slip4
+{
+    static void Main()
+    {
+        Console.Write("Please enter a string: ");
+        string input = Console.ReadLine();
+        
+        string sanitizedInput = input.Replace(" ", "").ToLower();
+        string reversedInput = ReverseString(sanitizedInput);
+        
+        if (sanitizedInput == reversedInput)
+        {
+            Console.WriteLine($"'{input}' is a palindrome.");
+        }
+        else
+        {
+            Console.WriteLine($"'{input}' is not a palindrome.");
+        }
+    }
+
+    static string ReverseString(string str)
+    {
+        char[] charArray = str.ToCharArray();
+        Array.Reverse(charArray);
+        return new string(charArray);
+    }
+}
+
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp1
+{
+    public partial class Form1 : Form
+    {
+        private ColorDialog colorDialog;
+
+        public Form1()
+        {
+            InitializeComponent();
+            colorDialog = new ColorDialog();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void submitButton_Click(object sender, EventArgs e)
+        {
+            string name = nameTextBox.Text;
+            string message = messageTextBox.Text;
+            resultLabel.Text = $"{name}: {message}";
+
+            
+            FontStyle style = FontStyle.Regular;
+            if (boldCheckBox.Checked) style |= FontStyle.Bold;
+            if (italicCheckBox.Checked) style |= FontStyle.Italic;
+            if (underlineCheckBox.Checked) style |= FontStyle.Underline;
+            resultLabel.Font = new Font(resultLabel.Font, style);
+        }
+
+        private void colorButton_Click(object sender, EventArgs e)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                resultLabel.BackColor = colorDialog.Color; 
+                resultLabel.ForeColor = colorDialog.Color; 
+            }
+        }
+
+        private void foreColorButton_Click(object sender, EventArgs e)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                resultLabel.ForeColor = colorDialog.Color;
+            }
+        }
+    }
+}

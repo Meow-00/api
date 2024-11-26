@@ -1,0 +1,123 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter the number of elements in the array: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+        int[] array = new int[n];
+
+        Console.WriteLine("Enter the elements of the array:");
+        for (int i = 0; i < n; i++)
+        {
+            array[i] = Convert.ToInt32(Console.ReadLine());
+        }
+
+        int min = array[0];
+        int max = array[0];
+
+        for (int i = 1; i < n; i++)
+        {
+            if (array[i] < min) min = array[i];
+            if (array[i] > max) max = array[i];
+        }
+
+        Console.WriteLine($"Minimum element: {min}");
+        Console.WriteLine($"Maximum element: {max}");
+    }
+}
+
+
+
+using System;
+using System.Data.SqlClient;
+
+class StudentDatabase
+{
+    static void Main()
+    {
+        string connectionString = "your_connection_string_here";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+            InsertSampleData(connection);
+            DeleteLowScorers(connection);
+            DisplayHighScorers(connection);
+            DisplayStudentsStartingWithK(connection);
+        }
+    }
+
+    static void InsertSampleData(SqlConnection connection)
+    {
+        string insertQuery = "INSERT INTO student (rollno, name, per) VALUES (@rollno, @name, @per)";
+        using (SqlCommand command = new SqlCommand(insertQuery, connection))
+        {
+            command.Parameters.AddWithValue("@rollno", 1);
+            command.Parameters.AddWithValue("@name", "Alice");
+            command.Parameters.AddWithValue("@per", 95);
+            command.ExecuteNonQuery();
+
+            command.Parameters["@rollno"].Value = 2;
+            command.Parameters["@name"].Value = "Bob";
+            command.Parameters["@per"].Value = 85;
+            command.ExecuteNonQuery();
+
+            command.Parameters["@rollno"].Value = 3;
+            command.Parameters["@name"].Value = "Charlie";
+            command.Parameters["@per"].Value = 30;
+            command.ExecuteNonQuery();
+
+            command.Parameters["@rollno"].Value = 4;
+            command.Parameters["@name"].Value = "Kathy";
+            command.Parameters["@per"].Value = 70;
+            command.ExecuteNonQuery();
+
+            command.Parameters["@rollno"].Value = 5;
+            command.Parameters["@name"].Value = "Kevin";
+            command.Parameters["@per"].Value = 98;
+            command.ExecuteNonQuery();
+        }
+    }
+
+    static void DeleteLowScorers(SqlConnection connection)
+    {
+        string deleteQuery = "DELETE FROM student WHERE per < 40";
+        using (SqlCommand command = new SqlCommand(deleteQuery, connection))
+        {
+            command.ExecuteNonQuery();
+        }
+    }
+
+    static void DisplayHighScorers(SqlConnection connection)
+    {
+        string selectQuery = "SELECT name FROM student WHERE per > 90";
+        using (SqlCommand command = new SqlCommand(selectQuery, connection))
+        {
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                Console.WriteLine("Students with more than 90%:");
+                while (reader.Read())
+                {
+                    Console.WriteLine(reader["name"]);
+                }
+            }
+        }
+    }
+
+    static void DisplayStudentsStartingWithK(SqlConnection connection)
+    {
+        string selectQuery = "SELECT name FROM student WHERE name LIKE 'K%'";
+        using (SqlCommand command = new SqlCommand(selectQuery, connection))
+        {
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                Console.WriteLine("Students starting with 'K':");
+                while (reader.Read())
+                {
+                    Console.WriteLine(reader["name"]);
+                }
+            }
+        }
+    }
+}
