@@ -1,0 +1,53 @@
+using System;
+
+class slip1_Factorial
+{
+    static void Main()
+    {
+        Console.Write("Enter a number to calculate its factorial: ");
+        int number = Convert.ToInt32(Console.ReadLine());
+        long factorial = CalculateFactorial(number);
+        Console.WriteLine($"The factorial of {number} is {factorial}");
+    }
+
+    static long CalculateFactorial(int n)
+    {
+        if (n < 0)
+            throw new ArgumentException("Factorial is not defined for negative numbers.");
+        
+        long result = 1;
+        for (int i = 1; i <= n; i++)
+        {
+            result *= i;
+        }
+        return result;
+    }
+}
+
+
+
+using System;
+
+class slip1_StudentInformation
+{
+    static void Main()
+    {
+        Console.Write("Enter Student Id: ");
+        string studentId = Console.ReadLine();
+
+        Console.Write("Enter Student Name: ");
+        string studentName = Console.ReadLine();
+
+        Console.Write("Enter Course Name: ");
+        string courseName = Console.ReadLine();
+
+        Console.Write("Enter Date of Birth (yyyy-mm-dd): ");
+        string dateOfBirth = Console.ReadLine();
+
+        Console.WriteLine("\nStudent Information:");
+        Console.WriteLine($"Student Id: {studentId}");
+        Console.WriteLine($"Student Name: {studentName}");
+        Console.WriteLine($"Course Name: {courseName}");
+        Console.WriteLine($"Date of Birth: {dateOfBirth}");
+    }
+}
