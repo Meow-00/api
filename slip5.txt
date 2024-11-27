@@ -28,64 +28,62 @@ class slip5
 
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ColorChangerApp
+namespace slip5q2_3_
 {
-    public partial class Form1 : Form
+    public partial class UserControl1 : UserControl
     {
-        public Form1()
+        public UserControl1()
         {
             InitializeComponent();
-            InitializeColorListControl();
         }
 
-        private void InitializeColorListControl()
+        private void UserControl1_Load(object sender, EventArgs e)
         {
-            var colorListControl = new ColorListControl();
-            colorListControl.Location = new Point(10, 10);
-            this.Controls.Add(colorListControl);
+            comboBox1.Items.Add("Red");
+            comboBox1.Items.Add("Green");
+            comboBox1.Items.Add("Blue");
+            comboBox1.Items.Add("Yellow");
+            comboBox1.Items.Add("Black");
 
-            Button btnChangeColor = new Button();
-            btnChangeColor.Text = "Change Color";
-            btnChangeColor.Location = new Point(10, 100);
-            btnChangeColor.Click += (s, e) => 
+            // Set default selected color
+            comboBox1.SelectedIndex = 0;
+        }
+
+        private void Change_color_Click(object sender, EventArgs e)
+        {
+            string selectedColor = comboBox1.SelectedItem.ToString();
+
+            // Change the form's background color based on the selected color
+            switch (selectedColor)
             {
-                this.BackColor = colorListControl.SelectedColor;
-            };
-            this.Controls.Add(btnChangeColor);
-        }
-    }
-
-    public class ColorListControl : UserControl
-    {
-        private ComboBox comboBoxColors;
-
-        public ColorListControl()
-        {
-            comboBoxColors = new ComboBox();
-            comboBoxColors.Dock = DockStyle.Top;
-            this.Controls.Add(comboBoxColors);
-            LoadColors();
-        }
-
-        private void LoadColors()
-        {
-            comboBoxColors.Items.AddRange(new object[]
-            {
-                "Red", "Green", "Blue", "Yellow", "Cyan", "Magenta", "Orange", "Purple", "Black", "White"
-            });
-            comboBoxColors.SelectedIndex = 0;
-        }
-
-        public Color SelectedColor
-        {
-            get
-            {
-                return Color.FromName(comboBoxColors.SelectedItem.ToString());
+                case "Red":
+                    this.BackColor = Color.Red;
+                    break;
+                case "Green":
+                    this.BackColor = Color.Green;
+                    break;
+                case "Blue":
+                    this.BackColor = Color.Blue;
+                    break;
+                case "Yellow":
+                    this.BackColor = Color.Yellow;
+                    break;
+                case "Black":
+                    this.BackColor = Color.Black;
+                    break;
+                default:
+                    this.BackColor = Color.White; // Default color
+                    break;
             }
         }
     }
 }
-
