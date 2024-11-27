@@ -41,7 +41,7 @@ class Program
 using System;
 using System.Windows.Forms;
 
-namespace PalindromeCheckerApp
+namespace slip10q2_2_
 {
     public partial class Form1 : Form
     {
@@ -50,34 +50,37 @@ namespace PalindromeCheckerApp
             InitializeComponent();
         }
 
-        private void btnCheck_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            string input = txtNumber.Text;
-            if (IsPalindrome(input))
+        }
+
+        private void butt_Click(object sender, EventArgs e)
+        {
+            string input = txtname.Text;
+
+            if (string.IsNullOrEmpty(input))
             {
-                lblResult.Text = $"{input} is a palindrome.";
+                Display.Text = "Please enter a number.";
+                return;
+            }
+
+            string reversed = ReverseNumber(input);
+
+            if (input == reversed)
+            {
+                Display.Text = $"{input} is a palindrome.";
             }
             else
             {
-                lblResult.Text = $"{input} is not a palindrome.";
+                Display.Text = $"{input} is not a palindrome.";
             }
         }
 
-        private bool IsPalindrome(string str)
+        private string ReverseNumber(string input)
         {
-            int left = 0;
-            int right = str.Length - 1;
-
-            while (left < right)
-            {
-                if (str[left] != str[right])
-                {
-                    return false;
-                }
-                left++;
-                right--;
-            }
-            return true;
+            char[] charArray = input.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
         }
     }
 }
