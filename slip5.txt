@@ -44,6 +44,71 @@ namespace slip5q2_3_
         }
     }
 }
+
+
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace slip5q2_3_
+{
+    public partial class UserControl1 : UserControl
+    {
+        public UserControl1()
+        {
+            InitializeComponent();
+        }
+
+        private void UserControl1_Load(object sender, EventArgs e)
+        {
+            comboBox1.Items.Add("Red");
+            comboBox1.Items.Add("Green");
+            comboBox1.Items.Add("Blue");
+            comboBox1.Items.Add("Yellow");
+            comboBox1.Items.Add("Black");
+
+            
+            comboBox1.SelectedIndex = 0;
+        }
+
+        private void Change_color_Click(object sender, EventArgs e)
+        {
+            string selectedColor = comboBox1.SelectedItem.ToString();
+
+           
+            switch (selectedColor)
+            {
+                case "Red":
+                    this.BackColor = Color.Red;
+                    break;
+                case "Green":
+                    this.BackColor = Color.Green;
+                    break;
+                case "Blue":
+                    this.BackColor = Color.Blue;
+                    break;
+                case "Yellow":
+                    this.BackColor = Color.Yellow;
+                    break;
+                case "Black":
+                    this.BackColor = Color.Black;
+                    break;
+                default:
+                    this.BackColor = Color.White; 
+                    break;
+            }
+        }
+    }
+}
+
+
 ComboBox (colorComboBox):
 This is part of the UserControl (ColorListControl).
 It allows the user to select a color from a list (e.g., "Red", "Green", "Blue", etc.).
