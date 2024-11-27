@@ -32,14 +32,14 @@ namespace slip5q2_3_
         {
             InitializeComponent();
 
-            var colorSelect = new UserControl1();  // Ensure the name matches your UserControl
+            var colorSelect = new UserControl1();  
 
-            // Add the UserControl to the form's controls
+           
             this.Controls.Add(colorSelect);
 
-            // Optionally, set the size and position of the UserControl
-            colorSelect.Location = new Point(10, 10);  // Adjust as needed
-            colorSelect.Size = new Size(300, 350);     // Adjust as needed
+            
+            colorSelect.Location = new Point(10, 10);  
+            colorSelect.Size = new Size(300, 350);    
 
         }
     }
