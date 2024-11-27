@@ -24,93 +24,26 @@ class slip5
 }
 
 
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace ColorChangerApp
+namespace slip5q2_3_
 {
     public partial class Form1 : Form
     {
-        private ColorListControl colorListControl;
-
         public Form1()
         {
             InitializeComponent();
-            InitializeUI();
-        }
 
-        private void InitializeUI()
-        {
-            colorListControl = new ColorListControl
-            {
-                Location = new Point(10, 10),
-                Size = new Size(200, 30)
-            };
-            this.Controls.Add(colorListControl);
+            var colorSelect = new UserControl1();  // Ensure the name matches your UserControl
 
-            Button changeColorButton = new Button
-            {
-                Text = "Change Color",
-                Location = new Point(10, 50),
-                Size = new Size(100, 30)
-            };
-            changeColorButton.Click += ChangeColorButton_Click;
-            this.Controls.Add(changeColorButton);
-        }
+            // Add the UserControl to the form's controls
+            this.Controls.Add(colorSelect);
 
-        private void ChangeColorButton_Click(object sender, EventArgs e)
-        {
-            this.BackColor = colorListControl.SelectedColor;
+            // Optionally, set the size and position of the UserControl
+            colorSelect.Location = new Point(10, 10);  // Adjust as needed
+            colorSelect.Size = new Size(300, 350);     // Adjust as needed
+
         }
     }
 }
-
-
-UserControl Code
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace ColorChangerApp
-{
-    public class ColorListControl : UserControl
-    {
-        private ComboBox colorComboBox;
-
-        public ColorListControl()
-        {
-          
-            colorComboBox = new ComboBox
-            {
-                Dock = DockStyle.Fill,
-                DropDownStyle = ComboBoxStyle.DropDownList
-            };
-            this.Controls.Add(colorComboBox);
-
-            LoadColors();
-        }
-
-        private void LoadColors()
-        {
-            colorComboBox.Items.AddRange(new object[]
-            {
-                "Red", "Green", "Blue", "Yellow", "Cyan", "Magenta", "Orange", "Purple", "Black", "White"
-            });
-
-            colorComboBox.SelectedIndex = 0; 
-        }
-
-        public Color SelectedColor
-        {
-            get
-            {
-                return Color.FromName(colorComboBox.SelectedItem.ToString());
-            }
-        }
-    }
-}
-
 ComboBox (colorComboBox):
 This is part of the UserControl (ColorListControl).
 It allows the user to select a color from a list (e.g., "Red", "Green", "Blue", etc.).
