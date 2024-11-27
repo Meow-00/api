@@ -1,1 +1,122 @@
+using System;
+
+class slip5
+{
+    static void Main()
+    {
+        int[] numbers = { 23, 45, 12, 67, 34, 89, 2, 90, 56 };
+        int largestNumber = FindLargestNumber(numbers);
+        Console.WriteLine($"The largest number in the array is: {largestNumber}");
+    }
+
+    static int FindLargestNumber(int[] array)
+    {
+        int largest = array[0];
+        foreach (int number in array)
+        {
+            if (number > largest)
+            {
+                largest = number;
+            }
+        }
+        return largest;
+    }
+}
+
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace ColorChangerApp
+{
+    public partial class Form1 : Form
+    {
+        private ColorListControl colorListControl;
+
+        public Form1()
+        {
+            InitializeComponent();
+            InitializeUI();
+        }
+
+        private void InitializeUI()
+        {
+            colorListControl = new ColorListControl
+            {
+                Location = new Point(10, 10),
+                Size = new Size(200, 30)
+            };
+            this.Controls.Add(colorListControl);
+
+            Button changeColorButton = new Button
+            {
+                Text = "Change Color",
+                Location = new Point(10, 50),
+                Size = new Size(100, 30)
+            };
+            changeColorButton.Click += ChangeColorButton_Click;
+            this.Controls.Add(changeColorButton);
+        }
+
+        private void ChangeColorButton_Click(object sender, EventArgs e)
+        {
+            this.BackColor = colorListControl.SelectedColor;
+        }
+    }
+}
+
+
+UserControl Code
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace ColorChangerApp
+{
+    public class ColorListControl : UserControl
+    {
+        private ComboBox colorComboBox;
+
+        public ColorListControl()
+        {
+          
+            colorComboBox = new ComboBox
+            {
+                Dock = DockStyle.Fill,
+                DropDownStyle = ComboBoxStyle.DropDownList
+            };
+            this.Controls.Add(colorComboBox);
+
+            LoadColors();
+        }
+
+        private void LoadColors()
+        {
+            colorComboBox.Items.AddRange(new object[]
+            {
+                "Red", "Green", "Blue", "Yellow", "Cyan", "Magenta", "Orange", "Purple", "Black", "White"
+            });
+
+            colorComboBox.SelectedIndex = 0; 
+        }
+
+        public Color SelectedColor
+        {
+            get
+            {
+                return Color.FromName(colorComboBox.SelectedItem.ToString());
+            }
+        }
+    }
+}
+
+ComboBox (colorComboBox):
+This is part of the UserControl (ColorListControl).
+It allows the user to select a color from a list (e.g., "Red", "Green", "Blue", etc.).
+The ComboBox is automatically populated with color names when the ColorListControl is initialized.
+
+Button (changeColorButton):
+This is located on the Form1 (main form).
+When you click this button, it will use the color selected from the ComboBox to change the background color of the main form.
 
