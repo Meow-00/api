@@ -7,7 +7,7 @@ class Program
         Console.Write("Enter a string: ");
         string input = Console.ReadLine();
         
-        // Remove spaces and convert to lowercase for uniformity
+       
         string processedInput = input.Replace(" ", "").ToLower();
         
         if (IsPalindrome(processedInput))
